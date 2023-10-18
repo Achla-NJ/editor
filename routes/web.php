@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\IndexController;
+use App\Http\Livewire\Content;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,4 +13,13 @@ use App\Http\Controllers\IndexController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/{slug?}',[IndexController::class,'index'])->name('index');
+ 
+// Route::get('/content', Content::class);
+Route::get('/login/{slug?}', [IndexController::class, 'login'])->name('login')->where('slug', '.*'); 
+Route::post('/signin', [IndexController::class, 'signin'])->name('signin'); 
+Route::get('/{slug?}', [IndexController::class, 'index'])->name('index')->where('slug', '.*'); 
+Route::post('update-content', [IndexController::class, 'updateContent'])->name('update-content');
+Route::post('update-url', [IndexController::class, 'updateUrl'])->name('update-url');
+Route::post('add-password', [IndexController::class, 'addPassword'])->name('add-password');
+Route::post('remove-password', [IndexController::class, 'removePassword'])->name('remove-password');
+
