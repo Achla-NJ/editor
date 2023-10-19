@@ -12,19 +12,32 @@
                         <li><a href="{{ route('index')}}"><i class="fa fa-plus"></i></a></li>
                         <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-lock"></i></a></li>
                         <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#editUrl"><i class="fa-solid fa-pen"></i></a></li>
-                        <li><a href=""><i class="fa-solid fa-user"></i></a></li>
+                        {{-- <li><a href=""><i class="fa-solid fa-user"></i></a></li> --}}
                     </ul>
                 </div> 
             </section>
             
             <section class="row editor"> 
                 <div class="col-md-12 p-0">
-                        <textarea name="content" id="content" class="form-control" >{!! $page->content ?? '' !!}</textarea>
+                        <textarea name="content" id="content" class="form-control" onkeyup="updateContent()" >{!! $page->content ?? '' !!}</textarea>
                 </div>
             </section>
         </div>
         <div class="col-md-3">
-            
+            <div class="row">
+                <div class="col-md-12" id="dropzone">
+                    <form action="{{ route('FileUpload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
+                        @csrf
+                        <input type="hidden" name="page_id"  value="{{$page->id}}">  
+                        <div class="dz-message">
+                            Drag and Drop Single/Multiple Files Here<br>
+                        </div>
+                    </form>
+                </div>
+                <div class="row" id="media-wrapper">
+                    <x-media :page="$page"/>
+                </div>
+            </div> 
         </div>
     </div> 
     

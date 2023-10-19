@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use App\Models\File;
 use Illuminate\Support\Facades\Hash;
 
 class IndexController extends Controller
@@ -79,6 +80,34 @@ class IndexController extends Controller
     }
 
    
+   
+    
+    public  function FileUpload(Request $request)
+    {
+        if($request->hasFile('file')){
+            $file =$request->file('file')->store( 'uploads', 'public');
+            $mime = $request->file('file')->getClientMimeType();
+            File::create([
+                'file' => $file , 
+                'page_id' => $request->page_id,
+                'mime' => $mime
+            ]);
+
+            $page = Page::find($request->page_id);
+
+            $data = view('components.media' , compact('page'));
+
+            return response()->json(['success'=>$file , 'data' => $data]);
+        }
+    }
+
+    public  function removeFile(Request $request)
+    {
+        $file = File::find($request->id);
+        $page = Page::find($file->page_id);
+        $file = $file->delete(); 
+        return view('components.media' , compact('page'));
+    }
 }
 
 

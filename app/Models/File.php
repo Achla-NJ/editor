@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Page extends Model
+class File extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'slug', 
-        'content',
-        'password',
+        'file', 
+        'page_id', 
+        'mime'
     ]; 
 
-
-    public function files(){
-        return $this->hasMany(File::class);
+    public function page(){
+        return $this->belongsTo(Page::class);
     }
 }
  

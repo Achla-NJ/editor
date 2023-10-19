@@ -81,4 +81,14 @@ body {
 
 #errorMessages ul {
   list-style-type: none;
+}
+
+.dropzone {
+  background: #e3e6ff;
+  border-radius: 13px;
+  max-width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 2px dotted #1833FF;
+  margin-top: 50px;
 }/*# sourceMappingURL=style.css.map */

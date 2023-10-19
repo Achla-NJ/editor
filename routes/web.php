@@ -22,4 +22,8 @@ Route::post('update-content', [IndexController::class, 'updateContent'])->name('
 Route::post('update-url', [IndexController::class, 'updateUrl'])->name('update-url');
 Route::post('add-password', [IndexController::class, 'addPassword'])->name('add-password');
 Route::post('remove-password', [IndexController::class, 'removePassword'])->name('remove-password');
+Route::post('remove-file', [IndexController::class, 'removeFile'])->name('remove-file');
 
+
+Route::get('upload-ui', [IndexController::class, 'uploadUi' ]);
+Route::post('file-upload', [IndexController::class, 'FileUpload' ])->name('FileUpload');
