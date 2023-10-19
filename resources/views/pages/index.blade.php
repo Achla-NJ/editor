@@ -5,13 +5,14 @@
         <div class="col-md-9">
             <section class="row navbar mt-4">
                 <div class="col-md-6">
-                    <img src="{{asset('assets/imgs/logo-dark.png')}}" alt="" class="head-logo">
+                    <img src="{{asset('assets/imgs/logo.png')}}" alt="" class="head-logo">
                 </div>
                 <div class="col-md-6 ">
                     <ul class="options d-flex justify-content-evenly">
-                        <li><a href="{{ route('index')}}"><i class="fa fa-plus"></i></a></li>
-                        <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-lock"></i></a></li>
                         <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#editUrl"><i class="fa-solid fa-pen"></i></a></li>
+                        <li><a href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#staticBackdrop"><i class="fa-solid fa-lock"></i></a></li>
+                        
+                        <li><a href="{{ route('index')}}"><i class="fa fa-plus"></i></a></li>
                         {{-- <li><a href=""><i class="fa-solid fa-user"></i></a></li> --}}
                     </ul>
                 </div> 
@@ -25,8 +26,9 @@
         </div>
         <div class="col-md-3">
             <div class="row">
-                <div class="col-md-12" id="dropzone">
-                    <form action="{{ route('FileUpload') }}" class="dropzone" id="file-upload" enctype="multipart/form-data">
+                <div class="col-md-12" id="dropzone"> 
+
+                    <form  class="dropzone" id="file-upload" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="page_id"  value="{{$page->id}}">  
                         <div class="dz-message">
@@ -56,9 +58,15 @@
                     </div>
                     <div class="col-md-12" id="remove-password" style="display: {{ !empty($page->password) ? ' block;' : ' none;'  }}">
                         <p class="modal-text">Password Options</p>
-                        <button type="button" class="main-btn" onclick="removePassword()">Remove</button>
-                        <button type="button" class="button main-btn" data-bs-dismiss="modal" >Logout</button>
-                        <button type="button" class="button main-btn" data-bs-dismiss="modal" >X</button>
+                        
+                        <form action="{{route('logout')}}" method="post">
+                            <button type="button" class="main-btn" onclick="removePassword()">Remove</button>
+                            @csrf
+                            <input type="hidden" name="slug"  value="{{$slug}}"> 
+                            <button type="submit" class="button main-btn"  >Logout</button>
+                            <button type="button" class="button main-btn" data-bs-dismiss="modal" >X</button>
+                        </form>
+                        
                     </div>
                     <div class="col-md-12 text-danger  mt-2" id="errorMessages"></div>
                 </div>

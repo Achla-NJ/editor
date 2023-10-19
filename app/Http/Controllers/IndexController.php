@@ -84,20 +84,24 @@ class IndexController extends Controller
     
     public  function FileUpload(Request $request)
     {
+        
         if($request->hasFile('file')){
-            $file =$request->file('file')->store( 'uploads', 'public');
-            $mime = $request->file('file')->getClientMimeType();
-            File::create([
-                'file' => $file , 
-                'page_id' => $request->page_id,
-                'mime' => $mime
-            ]);
+            foreach ($request->file('file') as $key => $file) {
+            
+                $fname = $file->store( 'uploads', 'public');
+                $mime = $file->getClientMimeType();
+                File::create([
+                    'file' => $fname , 
+                    'page_id' => $request->page_id,
+                    'mime' => $mime
+                ]);
 
-            $page = Page::find($request->page_id);
+                $page = Page::find($request->page_id);
+            }
 
-            $data = view('components.media' , compact('page'));
+            $data = view('components.media' , compact('page'))->render();
 
-            return response()->json(['success'=>$file , 'data' => $data]);
+            return response()->json(['success'=>true , 'data' => $data]);
         }
     }
 
@@ -107,6 +111,12 @@ class IndexController extends Controller
         $page = Page::find($file->page_id);
         $file = $file->delete(); 
         return view('components.media' , compact('page'));
+    }
+
+    public  function logout(Request $request)
+    {
+        session()->forget('login');       
+        return redirect()->route('index', $request->slug);
     }
 }
 

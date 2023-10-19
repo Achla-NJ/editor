@@ -27,3 +27,4 @@ Route::post('remove-file', [IndexController::class, 'removeFile'])->name('remove
 
 Route::get('upload-ui', [IndexController::class, 'uploadUi' ]);
 Route::post('file-upload', [IndexController::class, 'FileUpload' ])->name('FileUpload');
+Route::post('logout', [IndexController::class, 'logout' ])->name('logout');
