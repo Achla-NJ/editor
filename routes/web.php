@@ -20,6 +20,7 @@ Route::post('/signin', [IndexController::class, 'signin'])->name('signin');
 Route::get('/{slug?}', [IndexController::class, 'index'])->name('index')->where('slug', '.*'); 
 Route::post('update-content', [IndexController::class, 'updateContent'])->name('update-content');
 Route::post('update-url', [IndexController::class, 'updateUrl'])->name('update-url');
+Route::post('share-url', [IndexController::class, 'shareUrl'])->name('share-url');
 Route::post('add-password', [IndexController::class, 'addPassword'])->name('add-password');
 Route::post('remove-password', [IndexController::class, 'removePassword'])->name('remove-password');
 Route::post('remove-file', [IndexController::class, 'removeFile'])->name('remove-file');

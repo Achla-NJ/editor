@@ -8,15 +8,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Page;
 use App\Models\File;
 use Illuminate\Support\Facades\Hash;
-
+use Str;
 class IndexController extends Controller
 {
     public function index($slug = null)
-    {
+    {         
         if ($slug === null) { 
             $slug =  \Str::random(20);  
             return redirect()->route('index', ['slug' => $slug]);
         }
+        
         $page = Page::updateOrCreate(['slug' => $slug]); 
         $page =Page::query()->where('slug',$slug)->firstOrFail() ?? [];
         
@@ -69,7 +70,7 @@ class IndexController extends Controller
 
         $hashedPassword = Hash::make($request->password);
 
-        Page::updateOrCreate(['slug' => $request->slug] ,[ 'password'=>$hashedPassword]); 
+        Page::updateOrCreate(['slug' => $request->slug] ,['password'=>$hashedPassword]); 
         session()->put('login' , 'yes');       
         return response()->json(["success" => true, "status" => 200 ]);
     }
@@ -78,13 +79,9 @@ class IndexController extends Controller
         Page::updateOrCreate(['slug' => $request->slug] ,[ 'password'=>'']); 
         return response()->json(["success" => true, "status" => 200 ]);
     }
-
-   
-   
     
     public  function FileUpload(Request $request)
     {
-        
         if($request->hasFile('file')){
             foreach ($request->file('file') as $key => $file) {
             
@@ -117,6 +114,15 @@ class IndexController extends Controller
     {
         session()->forget('login');       
         return redirect()->route('index', $request->slug);
+    }
+
+    public function shareUrl(Request $request)
+    {  
+        $this->validate($request, [
+            'mobile_no' => 'required|numeric',
+        ]);
+        
+        return response()->json(["success" => true, "status" => 200 ]);
     }
 }
 

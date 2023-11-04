@@ -89,6 +89,11 @@ body {
   max-width: 550px;
   margin-left: auto;
   margin-right: auto;
-  border: 2px dotted #1833FF;
-  margin-top: 50px;
+  border: 2px dotted #1833FF !important;
+  margin-top: 25px;
+}
+
+#content {
+  font-size: 20px;
+  padding: 30px;
 }/*# sourceMappingURL=style.css.map */
